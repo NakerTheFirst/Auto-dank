@@ -1,81 +1,63 @@
-import random
 import pyautogui
 import time
 
-command_delay = {
-    "dig": 30,
-    "hunt": 30,
-    "fish": 30,
-    "beg": 40
+COMMANDS = {
+    "/dig": 30,
+    "/hunt": 30,
+    "/fish": 30,
+    "/beg": 40
 }
 
+DISCORD_WINDOW_COORDINATES = {
+    "big": (2300, 200),
+    "small": (-500, 850)
+}
 
-def run_command(text_command, delay):
-    pass
+CHANNEL_NAME = "#dank-memes-bot"
 
 
-big_x = 2300
-big_y = 200
+def enter():
+    pyautogui.press('enter', interval=0.25)
+    pyautogui.press('enter', interval=0.3)
 
-small_x = -500
-small_y = 850
 
-channel_name = "#dank-memes-bot"  # Replace with the name of your desired channel
-dig = "/dig"  # Replace with your desired message
-beg = "/beg"
-fish = "/fish"
-hunt = "/hunt"
+def switch_to_discord_tab():
+    time.sleep(2)
+    pyautogui.click(x=DISCORD_WINDOW_COORDINATES["small"][0], y=DISCORD_WINDOW_COORDINATES["small"][1])
 
-# Activate Discord window
 
-# Time to switch to Discord tab
-time.sleep(2)
-pyautogui.click(x=small_x, y=small_y)  # Replace with the coordinates of the Discord window on your screen
-pyautogui.hotkey('ctrl', 'k')  # Open channel search bar
-pyautogui.typewrite(channel_name, interval=0.005)  # Type channel name
-pyautogui.press('enter', interval=0.1)  # Select channel
-
-# Type message in channel and send
-time.sleep(0.2)  # Wait for channel to load
-pyautogui.typewrite(dig, interval=0.005)  # Type message
-time.sleep(0.05)
-pyautogui.press('space', interval=0.1)  # Send message
-pyautogui.press('enter', interval=0.1)  # Send message
-pyautogui.typewrite(fish, interval=0.1)  # Type message
-time.sleep(0.05)
-pyautogui.press('space', interval=0.1)  # Send message
-pyautogui.press('enter', interval=0.1)  # Send message
-pyautogui.typewrite(hunt, interval=0.005)  # Type message
-time.sleep(0.05)
-pyautogui.press('space', interval=0.1)  # Send message
-pyautogui.press('enter', interval=0.1)  # Send message
-pyautogui.typewrite(beg, interval=0.005)
-time.sleep(0.05)
-pyautogui.press('space', interval=0.1)
-pyautogui.press('enter', interval=0.1)
-
-# Repeat every 60 seconds
-while True:
-    random_delay = random.uniform(0.01, 0.015)
-    time.sleep(30 + random_delay)
-
-    pyautogui.typewrite(dig, interval=0.005)
-    time.sleep(0.05)
-    pyautogui.press('space', interval=0.1)
+def type_channel_name(channel_name):
+    pyautogui.hotkey('ctrl', 'k')
+    pyautogui.typewrite(channel_name, interval=0.005)
     pyautogui.press('enter', interval=0.1)
+    time.sleep(0.2)
 
-    pyautogui.typewrite(fish, interval=0.005)
-    time.sleep(0.05)
-    pyautogui.press('space', interval=0.1)
-    pyautogui.press('enter', interval=0.1)
 
-    pyautogui.typewrite(hunt, interval=0.005)
-    time.sleep(0.05)
-    pyautogui.press('space', interval=0.1)
-    pyautogui.press('enter', interval=0.1)
+def send_message(message):
+    pyautogui.typewrite(message, interval=0.05)
+    time.sleep(0.25)
+    enter()
 
-    time.sleep(10 + random_delay)
-    pyautogui.typewrite(beg, interval=0.005)
-    time.sleep(0.05)
-    pyautogui.press('space', interval=0.1)
-    pyautogui.press('enter', interval=0.1)
+
+def send_commands():
+    switch_to_discord_tab()
+    time.sleep(0.35)
+    type_channel_name(CHANNEL_NAME)
+
+    for command in COMMANDS:
+        send_message(command)
+        time.sleep(0.35)
+
+
+def run_commands():
+    while True:
+        time.sleep(10)
+
+        for command in COMMANDS:
+            pyautogui.typewrite(command, interval=0.05)
+            enter()
+            time.sleep(0.35)
+
+
+send_commands()
+run_commands()

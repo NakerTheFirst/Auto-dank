@@ -2,10 +2,10 @@
 Discord Dank Memer bot automated command posting via Python script
 
 ## Purpose
-The main goal was to experiment with automation and Discord API. The ToS do not allow use of user's personal token, so the automation process relies on accessing the Discord's interface "by hand" via `pyautogui` library. In other words - writing commands and navigating Discord is automated, so as to maximuse the income of virutal currency the Dank Memer bot introduces. 
+The main goal was to experiment with automation and Discord API. The ToS do not allow use of user's personal token, so the automation process relies on accessing the Discord's interface "by hand" via `pyautogui` library. In other words - writing commands and navigating Discord is automated, so as to maximise the income of virutal currency the Dank Memer bot introduces. 
 
 ## Usage
-The script requires the user to have Dicord open. 
+The script requires the user to have Dicord window open. 
 1. Modify the x, y coordinates of the active `DISCORD_WINDOW_COORDINATES` key, to click on the Discord interface without interacting with any messages or pictures
 2. Change the name of `CHANNEL_NAME` constant to match the text channel you wish to run commands on
 3. Run the programme in IDE of choice
